@@ -51,7 +51,10 @@
                 message: '你好呀'
             },
             components: {
-                parent-cpn: parentComponent
+                parent-cpn: parentComponent,
+                
+                // 这种写法就可以在Vue实例中使用子组件
+                child-cpn: childComponent,
             }
         })
     </script>
