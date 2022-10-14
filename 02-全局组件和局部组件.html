@@ -9,9 +9,13 @@
 <body>
     <div id="app">
         // 3.在Vue实例范围内使用组件
-        <my-cpn></my-cpn>
-        <my-cpn></my-cpn>
-        <my-cpn></my-cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+    </div>
+
+    <div id="app2">
+        <cpn></cpn>
     </div>
 
     <script src="../js/vue.js"></script>
@@ -30,7 +34,8 @@
 
         // 2.调用Vue.component()方法注册组件
         // 需要传入的两个参数：注册组件的标签名（必须加引号）、组件构造器
-        Vue.component('my-cpn', cpnC)
+        // 调用Vue.component()方法注册的是全局组件，意味着可以在多个Vue实例中使用，比如app、app2都可以使用cpn
+        Vue.component('cpn', cpnC)
 
         // 以上两步要在Vue实例创建之前
         const app = new Vue({
@@ -38,6 +43,10 @@
             data: {
                 message: '你好呀'
             }
+        })
+
+        const app2 = new Vue({
+            el: '#app2'
         })
     </script>
 </body>
