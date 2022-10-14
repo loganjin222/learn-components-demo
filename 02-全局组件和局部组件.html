@@ -35,16 +35,24 @@
         // 2.调用Vue.component()方法注册组件
         // 需要传入的两个参数：注册组件的标签名（必须加引号）、组件构造器
         // 调用Vue.component()方法注册的是全局组件，意味着可以在多个Vue实例中使用，比如app、app2都可以使用cpn
-        Vue.component('cpn', cpnC)
+        // Vue.component('cpn', cpnC)
 
         // 以上两步要在Vue实例创建之前
         const app = new Vue({
             el: '#app',
             data: {
                 message: '你好呀'
+            },
+            // 怎么注册的组件才是局部组件？
+            // 挂载在某个实例中
+            components: {
+                // 注册组件的标签名：组件构造器
+                // 'cpn': cpnC 局部组件的标签名有无引号都可以
+                cpn: cpnC
             }
         })
 
+        //此时app2中不能用<cpn></cpn>
         const app2 = new Vue({
             el: '#app2'
         })
