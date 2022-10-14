@@ -11,6 +11,10 @@
 <body>
     <div class="app">
         <parent-cpn></parent-cpn>
+
+        <!-- 父子组件的错误用法：以子标签的形式在Vue实例中使用 -->
+        <!-- <child-cpn></child-cpn> -->
+        <!-- 父子组件的正确用法：子组件在父组件的components中注册、template中使用 -->
     </div>
 
     <script src="../js/vue.js"></script>
