@@ -26,6 +26,15 @@
     <script>
         Vue.component('cpn', {
             template: '#cpn',
+            // data属性不能是一个对象，必须是一个函数
+            // data: {
+            //     title: '我才是标题'
+            // }
+            data() {
+                return {
+                    title: '我才是标题'
+                }
+            }
         })
 
         let app = new Vue({
