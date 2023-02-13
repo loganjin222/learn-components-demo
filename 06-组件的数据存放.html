@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <cpn></cpn>
+        <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+        <div>
+            <div>
+                <h2>{{title}}</h2>
+                <p>我是内容,呵呵呵</p>
+            </div>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        Vue.component('cpn', {
+            template: '#cpn',
+        })
+
+        let app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好呀',
+                // 组件不能直接访问Vue实例中的data数据
+                title: '我是标题'
+            }
+        })
+    </script>
+</body>
+</html>
