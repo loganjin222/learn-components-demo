@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        HTML中的属性名是大小写不敏感的，所以浏览器会把所有大写字符解释成小写字符，因此这里的驼峰命名法需要改成短横线分隔命名
+        <cpn :c-info="info" :child-message="message"></cpn>
+    </div>
+
+    <template>
+        <div>
+            <h2>{{cInfo}}</h2>
+            <h2>{{childMessage}}</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    
+    <script>
+        const cpn = {
+            template: '#cpn',
+            pros: {
+                cInfo: {
+                    type: Object,
+                    default() {
+                        return {}
+                    }
+                },
+                childMessage: {
+                    type: String,
+                    default: ''
+                }
+            }
+        }
+
+        const app = new Vue({
+            el: '#app',
+            data: {
+                info: {
+                    name: 'loganjin',
+                    age: 30,
+                    height: 1.71
+                },
+                message: 'Hello World'
+            },
+            components: {
+                cpn 
+            }
+        })
+    </script>
+</body>
+</html>
