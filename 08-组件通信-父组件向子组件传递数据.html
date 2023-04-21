@@ -1,0 +1,59 @@
+// 在下面的代码中，直接把Vue实例当作父组件，并且其中包含子组件来简化代码
+// 这里代码不好理解是因为结合了局部组件的语法糖注册方式和组件模板的分离写法，把这两个分开写成三个部分
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        // ATTENTION: 2: 通过:cmessage="message"，将data中的数据传给子组件props
+        <cpn :cmessage="message" :cmovies="movies"></cpn>
+
+        ATTENTION: 没有v-bind是给props传递一个静态的值，也就是说message不是一个变量而是字符串，此时界面显示message，而不是data中的数据
+        <cpn cmessage="message" cmovies="movies"></cpn>
+    </div>
+    
+    <template id="cpn">
+        <div>
+            // ATTENTION: 3: 将props中的值显示在子组件
+            <ul>
+                <li v-for="item in cmovies">{{item}}</li>
+            </ul>
+            <h2>{{cmessage}}</h2>
+        </div>
+    </template>
+
+    <script src="../js/vue.js"></script>
+    <script>
+        // 子组件
+        const cpn = {
+            template:`#cpn`,
+            // ATTENTION：1：在子组件中定义props
+            // 方式1：字符串数组
+            // 方式2：对象
+            props: ['cmovies', 'cmessage'],
+            data() {
+                return {
+                }
+            }
+        }
+
+        // 父组件
+        const app = new Vue({
+            el: '#app',
+            data: {
+                message: '你好呀',
+                movies: ['海王','海贼王','海尔兄弟']
+            },
+            components: {
+                cpn
+            }
+        })
+    </script>
+</body>
+</html>
