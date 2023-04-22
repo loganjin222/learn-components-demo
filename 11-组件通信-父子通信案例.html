@@ -9,18 +9,30 @@
 </head>
 <body>
     <div id="app">
-        <h2>{{num1}}</h2>
-        <h2>{{num2}}</h2>
-
-        <hr>
-
-        <cpn :number1="num1" :number2="num2"></cpn>
+        <!-- <h2>{{num1}}</h2> -->
+        <!-- <h2>{{num2}}</h2> -->
+<!--  -->
+        <!-- <hr> -->
+<!--  -->
+        <!-- <cpn :number1="num1" :number2="num2"></cpn> -->
+        <!-- 当中间不加内容时，可以写成单标签的形式 -->
+        <cpn :number1="num1" :number2="num2" @num1-change="num1Change" @num2-change="num2Change" />
     </div>
 
     <template id="cpn">
         <div>
-            <h2>{{number1}}</h2>
-            <h2>{{number2}}</h2>
+            <h2>props: {{number1}}</h2>
+            <!-- v-model以前绑定的是data中的数据，这里绑定的是props -->
+            <!-- 这样写会报错，应该让父组件去修改它，而不是直接修改props中的值(REASON: props中的值来自父组件) -->
+            <!-- METHOD：use a data or computed property based on the prop's value -->
+            <!-- <input v-model="number1" type="text"> -->
+            <h2>data: {{dnumber1}}</h2>
+            <input type="text" :value="dnumber1" @input="num1Input">
+
+            <h2>props: {{number2}}</h2>
+            <!-- <input v-model="number2" type="text"> -->
+            <h2>data: {{dnumber2}}</h2>
+            <input type="text" :value="dnumber2" @input="num2Input">
         </div>
     </template>
 
@@ -31,7 +43,31 @@
             props: {
                 number1: Number,
                 number2: Number
-            }     
+            },
+            data() {
+                return {
+                    dnumber1: this.number1,
+                    dnumber2: this.number2
+                }
+            }, 
+            methods: {
+                num1Input(event) {
+                    // 将input中的value赋值到dnumber中
+                    this.dnumber1 = event.target.value;
+                    this.$emit('num1-change', this.dnumber1),
+
+                    this.dnumber2 = this.dnumber1*100;
+                    this.$emit('num2-change', this.dnumber2)
+                },
+
+                num2Input(event) {
+                    this.dnumber2 = event.target.value;
+                    this.$emit('num2-change', this.dnumber2),
+
+                    this.dnumber1 = this.dnumber2 / 100;
+                    this.$emit('num1-change', this.dnumber1)
+                },
+            }   
         }
 
         const app = new Vue({
@@ -42,6 +78,15 @@
             },
             components: {
                 cpn
+            },
+            methods: {
+                // value传过来的值是String类型，需要转换成Number类型
+                num1Change() {
+                    this.num1 = parseFloat(value)
+                },
+                num2Change() {
+                    this.num2 = parseFloat(value)
+                }
             }
         })
     </script>
