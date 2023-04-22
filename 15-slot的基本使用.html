@@ -22,6 +22,8 @@
             <h2>我是h2元素</h2>
             <p>我是p元素</p>
         </cpn>
+
+        <cpn></cpn>
     </div>
 
     <template id="cpn">
@@ -29,7 +31,10 @@
             <h2>我是cpn组件</h2>
 
             <!-- 组件的插槽可以让我们封装的组件具备扩展性 -->
-            <slot></slot>
+            <!-- <slot></slot> -->
+            <slot>
+                我是插槽的默认值
+            </slot>
         </div>
     </template>
 
@@ -55,7 +60,6 @@
                     template: '#cpn2'
                 }
             }
-
         })
     </script>
 </body>
