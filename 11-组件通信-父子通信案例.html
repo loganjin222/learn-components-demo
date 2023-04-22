@@ -27,12 +27,14 @@
             <!-- METHOD：use a data or computed property based on the prop's value -->
             <!-- <input v-model="number1" type="text"> -->
             <h2>data: {{dnumber1}}</h2>
-            <input type="text" :value="dnumber1" @input="num1Input">
+            <!-- <input type="text" :value="dnumber1" @input="num1Input"> -->
+            <input type="text" v-model="dnumber1">
 
             <h2>props: {{number2}}</h2>
             <!-- <input v-model="number2" type="text"> -->
             <h2>data: {{dnumber2}}</h2>
-            <input type="text" :value="dnumber2" @input="num2Input">
+            <!-- <input type="text" :value="dnumber2" @input="num2Input"> -->
+            <input type="text" v-model="dnumber2">
         </div>
     </template>
 
@@ -50,22 +52,32 @@
                     dnumber2: this.number2
                 }
             }, 
-            methods: {
-                num1Input(event) {
-                    // 将input中的value赋值到dnumber中
-                    this.dnumber1 = event.target.value;
-                    this.$emit('num1-change', this.dnumber1),
+            // methods: {
+            //     num1Input(event) {
+            //         // 将input中的value赋值到dnumber中
+            //         this.dnumber1 = event.target.value;
+            //         this.$emit('num1-change', this.dnumber1),
 
-                    this.dnumber2 = this.dnumber1*100;
-                    this.$emit('num2-change', this.dnumber2)
+            //         this.dnumber2 = this.dnumber1*100;
+            //         this.$emit('num2-change', this.dnumber2)
+            //     },
+
+            //     num2Input(event) {
+            //         this.dnumber2 = event.target.value;
+            //         this.$emit('num2-change', this.dnumber2),
+
+            //         this.dnumber1 = this.dnumber2 / 100;
+            //         this.$emit('num1-change', this.dnumber1)
+            //     },
+            // }
+            watch: {
+                dnumber1(newValue) {
+                    this.dnumber2 = newValue * 100;
+                    this.$emit('num1-change', newValue);
                 },
-
-                num2Input(event) {
-                    this.dnumber2 = event.target.value;
-                    this.$emit('num2-change', this.dnumber2),
-
-                    this.dnumber1 = this.dnumber2 / 100;
-                    this.$emit('num1-change', this.dnumber1)
+                dnumber2(newValue) {
+                    this.dnumber1 = newValue / 100;
+                    this.$emit('num2-change', newValue);
                 },
             }   
         }
